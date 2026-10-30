@@ -1,0 +1,59 @@
+name: update-latest
+
+on:
+  schedule:
+    - cron: '0 1 * * *'    # 每天 UTC 01:00（北京 09:00）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 抓取 RSS 并重写「最近更新」区块
+        run: |
+          node -e '
+          const fs = require("fs");
+          (async () => {
+            const res = await fetch("https://yundaishu.github.io/MkDownPost/feed.xml");
+            if (!res.ok) { console.log("feed 不可用，跳过"); return; }
+            const xml = await res.text();
+            const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(m => {
+              const b = m[1];
+              const title = (b.match(/<title>([^<]+)<\/title>/) || [])[1] || "";
+              const link = (b.match(/<link>([^<]+)<\/link>/) || [])[1] || "";
+              const pub = (b.match(/<pubDate>([^<]+)<\/pubDate>/) || [])[1] || "";
+              const d = new Date(pub);
+              return { title, link, date: isNaN(d) ? "" : d.toISOString().slice(0, 10) };
+            }).slice(0, 6);
+            if (!items.length) { console.log("没有条目"); return; }
+            const block = [
+              "<!-- LATEST:START -->",
+              "| 日期 | 文章 |",
+              "| --- | --- |",
+              ...items.map(i => "| " + i.date + " | [" + i.title + "](" + i.link + ") |"),
+              "",
+              "<sub>共 **81 篇** · [全部文章](https://yundaishu.github.io/MkDownPost/#/articles) · [RSS 订阅](https://yundaishu.github.io/MkDownPost/feed.xml) · 本区块由 GitHub Actions 每日自动刷新</sub>",
+              "<!-- LATEST:END -->"
+            ].join("\n");
+            const readme = fs.readFileSync("README.md", "utf8");
+            const next = readme.replace(/<!-- LATEST:START -->[\s\S]*?<!-- LATEST:END -->/, block);
+            if (next === readme) { console.log("无变化"); return; }
+            fs.writeFileSync("README.md", next);
+            console.log("已更新 " + items.length + " 条");
+          })();
+          '
+      - name: 提交变更
+        run: |
+          if git diff --quiet README.md; then
+            echo "没有变化，跳过提交"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add README.md
+            git commit -m "chore: 自动刷新最近更新"
+            git push
+          fi
