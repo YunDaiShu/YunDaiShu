@@ -16,6 +16,23 @@
 
 ---
 
+## 最近更新
+
+<!-- LATEST:START -->
+| 日期 | 文章 |
+| --- | --- |
+| 2026-10-29 | [3 分钟上手：写出第一篇能直接发布的稿子](https://yundaishu.github.io/MkDownPost/a/start-in-3-minutes.html) |
+| 2026-10-28 | [这个网站能做什么、不能做什么](https://yundaishu.github.io/MkDownPost/a/what-this-site-does.html) |
+| 2026-10-27 | [Markdown 速查（含任务列表与表格）](https://yundaishu.github.io/MkDownPost/a/markdown-cheatsheet.html) |
+| 2026-10-26 | [从零写第一篇公众号排版](https://yundaishu.github.io/MkDownPost/a/getting-started.html) |
+| 2026-10-25 | [公众号排版实战：从草稿到发布](https://yundaishu.github.io/MkDownPost/a/wechat-publishing-guide.html) |
+| 2026-10-24 | [写作工作流：从灵感到发布的一条流水线](https://yundaishu.github.io/MkDownPost/a/writing-workflow.html) |
+
+<sub>共 **81 篇** · [全部文章](https://yundaishu.github.io/MkDownPost/#/articles) · [RSS 订阅](https://yundaishu.github.io/MkDownPost/feed.xml) · 本区块由 GitHub Actions 每日自动刷新</sub>
+<!-- LATEST:END -->
+
+---
+
 ## 现在手上在做的事
 
 <a href="https://github.com/YunDaiShu/MkDownPost">
@@ -65,6 +82,29 @@
 </p>
 
 <details>
+  <summary><b>English</b></summary>
+
+  Hi, I'm **YunDaiShu** — a front-end / tooling developer who turns repetitive manual work into
+  configure-once, reuse-forever utilities. Everything I ship is **static-first, backend-free, and never uploads your data**.
+
+  ### [MkDownPost · 码稿](https://yundaishu.github.io/MkDownPost/)
+
+  A Markdown writing & typesetting workbench for WeChat Official Accounts, Xiaoheihe, TapTap and Zhihu.
+
+  - **100 themes** (8 hand-tuned + 92 generated), 23 design tokens, light & dark
+  - **9 platform adapters** — each with its own export rules (inline styles, heading downgrade, table fallback)
+  - **8 export formats** — .md / inline HTML / Word / PDF / PNG / print ×2 / platform-specific
+  - **81 long-form articles** on Markdown practice, plus 81 crawlable static pages
+  - Zero build step, no node_modules, no backend, hosted on GitHub Pages
+  - Works offline via Service Worker; no AI features by design
+
+  **Principles:** data stays on the user's machine · prefer static over servers · vendor every dependency locally · document the limits honestly.
+
+  <sub>[Live demo](https://yundaishu.github.io/MkDownPost/) · [Articles](https://yundaishu.github.io/MkDownPost/#/articles) · [RSS](https://yundaishu.github.io/MkDownPost/feed.xml)</sub>
+
+</details>
+
+<details>
   <summary><b>关于我（点开看）</b></summary>
 
   - 关注方向：Markdown 排版系统、静态站点、零构建工程、可访问性
@@ -78,7 +118,7 @@
   <summary><b>这个主页是怎么做的</b></summary>
 
   头图是 1280×420 的 PNG，用 HTML + CSS 手绘后截图生成；三枚徽章是自托管 SVG，不依赖 shields.io；
-  所有资源都在本仓库 assets/ 下，GitHub 直出，不经过第三方服务。
+  「最近更新」区块由仓库内的 GitHub Actions 每天抓取站点 RSS 自动重写，不需要手动维护。
 
 </details>
 
